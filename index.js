@@ -12,13 +12,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const confirmationMsg = document.getElementById("confirmation-message");
     const ratingSection = document.getElementById("rating-section");
     const ratingStars = document.getElementById("rating-stars");
+    const printReceiptBtn = document.getElementById("print-receipt");
 
     let order = [];
+    let totalAmount = 0;
 
     orderSection.style.display = "block";
     paymentModal.style.display = "none";
     confirmation.style.display = "none";
     ratingSection.style.display = "none";
+    printReceiptBtn.style.display = "none";
 
     function renderMenu() {
         menuArray.forEach(item => {
@@ -51,10 +54,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderOrder() {
         orderList.innerHTML = "";
-        let total = 0;
+        totalAmount = 0;
 
         order.forEach((item, index) => {
-            total += item.price;
+            totalAmount += item.price;
             const orderItem = document.createElement("div");
             orderItem.classList.add("order-item");
             orderItem.innerHTML = `
@@ -70,28 +73,23 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
 
-        totalPriceElem.textContent = `Total price: $${total}`;
+        totalPriceElem.textContent = `Total price: $${totalAmount}`;
     }
 
     function showRatingSection() {
         ratingSection.style.display = "block";
-    
         const stars = ratingStars.querySelectorAll(".star");
-    
+
         stars.forEach((star, index) => {
             star.addEventListener("click", () => {
-
                 stars.forEach(s => s.classList.remove("selected"));
-    
                 for (let i = 0; i <= index; i++) {
                     stars[i].classList.add("selected");
                 }
-    
                 alert(`You rated this order ${index + 1} stars!`);
             });
         });
     }
-    
 
     completeOrderBtn.addEventListener("click", () => {
         if (order.length > 0) {
@@ -101,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("Your cart is empty! Add items before completing the order.");
         }
     });
-    
+
     closePayment.addEventListener("click", () => {
         paymentModal.style.display = "none";
         paymentOverlay.style.display = "none";
@@ -113,21 +111,62 @@ document.addEventListener("DOMContentLoaded", () => {
         const cvv = document.getElementById("cvv").value.trim();
 
         if (name && card && cvv) {
-
             paymentModal.style.display = "none";
             paymentOverlay.style.display = "none";
 
             confirmation.style.display = "block";
             confirmationMsg.textContent = `Thank you, ${name}! Your order is on its way.`;
 
-            order = [];
-            renderOrder();
+            printReceiptBtn.style.display = "block";
 
             showRatingSection();
         } else {
             alert("Please fill in all fields!");
         }
     });
+
+    printReceiptBtn.addEventListener("click", () => {
+        printReceipt();
+    });
+
+    function printReceipt() {
+        const name = document.getElementById("name").value.trim();
+        let receiptContent = `
+            <html>
+            <head>
+                <title>Receipt</title>
+                <style>
+                    body { font-family: Arial, sans-serif; text-align: center; }
+                    h2 { color: green; }
+                    .receipt-container { border: 1px solid black; padding: 20px; margin: auto; width: 50%; }
+                </style>
+            </head>
+            <body>
+                <div class="receipt-container">
+                    <h2>Imani's Diner Receipt</h2>
+                    <p><strong>Name:</strong> ${name}</p>
+                    <p><strong>Order Details:</strong></p>
+                    <ul>
+        `;
+
+        order.forEach(item => {
+            receiptContent += `<li>${item.name} - $${item.price}</li>`;
+        });
+
+        receiptContent += `
+                    </ul>
+                    <p><strong>Total:</strong> $${totalAmount}</p>
+                    <p>Thank you for ordering with us!</p>
+                </div>
+            </body>
+            </html>
+        `;
+
+        const receiptWindow = window.open('', '_blank');
+        receiptWindow.document.write(receiptContent);
+        receiptWindow.document.close();
+        receiptWindow.print();
+    }
 
     renderMenu();
 });

@@ -84,6 +84,22 @@ button:hover {
     color: red;
 }
 
+#print-receipt {
+    background-color: blue;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    display: none;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+#print-receipt:hover {
+    background-color: darkblue;
+}
+
+
 #rating {
     color: blue;
 }
@@ -172,6 +188,8 @@ button:hover {
     .container {
         width: 100%;
         padding: 15px;
+        top: 50%;
+        left: 50%;
     }
 
     header {
