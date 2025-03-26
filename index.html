@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jimmy's Diner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Jimmy's Diner</h1>
+            <p>The best burgers and pizzas in town.</p>
+        </header>
+
+        <div id="menu-container"></div>
+
+        <div id="order-section">
+            <h2>Your order</h2>
+            <div id="order-list"></div>
+            <p id="total-price"></p>
+            <button id="complete-order">Complete order</button>
+        </div>
+
+        <div id="payment-overlay"></div>
+        <div id="payment-modal">
+            <button id="close-payment">&times;</button>
+            <div id="payment-modal-content">
+                <h2>Payment</h2>
+                <input type="text" id="name" placeholder="Full Name">
+                <input type="text" id="card" placeholder="Card Number">
+                <input type="text" id="cvv" placeholder="CVV">
+                <button id="pay">Pay</button>
+            </div>
+        </div>
+
+
+        <div id="confirmation" class="hidden">
+            <p id="confirmation-message"></p>
+        </div>
+
+        <div id="rating-section">
+            <p>Rate your order:</p>
+            <div id="rating-stars">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+            </div>
+        </div>
+        
+        
+    </div>
+
+    <script src="data.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
