@@ -55,7 +55,6 @@ header {
 }
 
 button {
-    background-color: green;
     color: white;
     border: none;
     padding: 10px;
@@ -65,6 +64,18 @@ button {
 
 button:hover {
     background-color: darkgreen;
+}
+
+#complete-order, .add-btn, #pay {
+    background-color: green;
+    color: white;
+    border-radius: 5%;
+}
+
+.remove-btn {
+    border-radius: 50%;
+    background-color: white;
+    color: red;
 }
 
 #payment-modal {
